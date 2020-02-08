@@ -12,21 +12,26 @@ const PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-var reserve = [{
-    routeReserv: "reserve",
-    customerName: "mbsbk",
-    customerEmail: "mnweljbngd",
-    phoneNumber: "wm,enfjs",
-    customerID: "sd,mfngkdjf"
-}];
+var reserve = [
+    {
+    routeName:"reserve",
+    name: "sdfg",
+    phone: "sdfg",
+    email: "sdf",
+    id: "",
+    party: ""
+}
+];
 
-var waiting = [{
-    routeReserv: "",
-    customerName: "",
-    customerEmail: "",
-    phoneNumber: "",
-    customerID: ""
-}];
+var waiting = [
+    {   routeName:"tables",
+        name: "",
+        phone: "",
+        email: "",
+        id: 0,
+        party: 0
+}
+];
 
 // Routes
 // =============================================================
@@ -40,32 +45,32 @@ app.get("/reserve", function (req, res) { //add a character
     res.sendFile(path.join(__dirname, "reserve.html"));
 });
 
-app.get("/table", function (req, res) { //add a character
+app.get("/tables", function (req, res) { //add a character
     res.sendFile(path.join(__dirname, "tables.html"));
 });
 
 // Displays all characters
-app.get("/api/table", function (req, res) {
-    return res.json(newReserve);
+app.get("/api/tables", function (req, res) {
+    return res.json(newReservation);
 });
 
 
 
 // Create New Characters - takes in JSON input
-app.post("/api/reserve", function (req, res) {
+app.post("/api/tables", function (req, res) {
     // req.body hosts is equal to the JSON post sent from the user
     // This works because of our body parsing middleware
-    var newReserve = req.body;
+    var newReservation = req.body;
 
     // Using a RegEx Pattern to remove spaces from newCharacter
     // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-    newReserve.routeName = newReserve.name.replace(/\s+/g, "").toLowerCase(); //replace(/\s+/g, "") is getting rid of spaces
+    newReservation.routeName = newReservation.name.replace(/\s+/g, "").toLowerCase(); //replace(/\s+/g, "") is getting rid of spaces
 
-    console.log(newReserve);
+    console.log(newReservation);
 
-    reserve.push(newReserve);
+    reserve.push(newReservation);
 
-    res.json(newReserve);
+    res.json(newReservation);
 });
 
 
