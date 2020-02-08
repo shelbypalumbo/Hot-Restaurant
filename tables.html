@@ -53,7 +53,8 @@
             <div class="container">
                 <p>Control Panel</p>
               <p><a href="#" id="clear">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a></p>
-            </div>
+			  <form method="POST" role="form">
+			</div>
           </footer>
 
 	</div>
@@ -66,7 +67,7 @@
   	// Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
   	// In this case the associated code "saves" the data to the table-data.js file or waitinglist-data.js file
 
-  	$(".submit").on("click", function(){
+  	$(".submit").on("click", function(event){
 		event.preventDefault();
   		// Here we grab the form elements
   		var newReservation = {

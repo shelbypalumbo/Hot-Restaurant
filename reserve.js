@@ -28,8 +28,8 @@ var waiting = [
         name: "",
         phone: "",
         email: "",
-        id: 0,
-        party: 0
+        id: "",
+        party: ""
 }
 ];
 
@@ -38,7 +38,7 @@ var waiting = [
 
 // Basic route that sends the user first to the AJAX Page
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "reserve.html"));
+    res.sendFile(path.join(__dirname, "home.html"));
 });
 
 app.get("/reserve", function (req, res) { //add a character
@@ -51,6 +51,10 @@ app.get("/tables", function (req, res) {
 
 // Displays all tables
 app.get("/api/tables", function (req, res) {
+    return res.json(newReservation);
+});
+
+app.get("/api/waitlist", function (req, res) {
     return res.json(newReservation);
 });
 
@@ -67,11 +71,30 @@ app.post("/api/tables", function (req, res) {
 
     console.log(newReservation2);
 
-    reserve.push(newReservation2);
+    waiting.push(newReservation2);
 
     res.json(newReservation2);
 });
 
+
+
+
+
+app.post("/api/waitlist", function (req, res) {
+    // req.body hosts is equal to the JSON post sent from the user
+    // This works because of our body parsing middleware
+    var newReservation2 = req.body;
+
+    // Using a RegEx Pattern to remove spaces from newCharacter
+    // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+    newReservation2.routeName = newReservation2.name.replace(/\s+/g, "").toLowerCase(); //replace(/\s+/g, "") is getting rid of spaces
+
+    console.log(newReservation2);
+
+    waiting.push(newReservation2);
+
+    res.json(newReservation2);
+});
 
 
 // Starts the server to begin listening
