@@ -38,25 +38,24 @@ var waiting = [
 
 // Basic route that sends the user first to the AJAX Page
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "home.html"));
+    res.sendFile(path.join(__dirname, "reserve.html"));
 });
 
 app.get("/reserve", function (req, res) { //add a character
     res.sendFile(path.join(__dirname, "reserve.html"));
 });
 
-app.get("/tables", function (req, res) { //add a character
+app.get("/tables", function (req, res) { 
     res.sendFile(path.join(__dirname, "tables.html"));
 });
 
-// Displays all characters
+// Displays all tables
 app.get("/api/tables", function (req, res) {
     return res.json(newReservation);
 });
 
 
 
-// Create New Characters - takes in JSON input
 app.post("/api/tables", function (req, res) {
     // req.body hosts is equal to the JSON post sent from the user
     // This works because of our body parsing middleware
