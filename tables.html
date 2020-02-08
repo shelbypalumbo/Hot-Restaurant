@@ -6,7 +6,8 @@
 	<!-- Latest compiled and minified CSS & JS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet">
 
 </head>
 <body>
@@ -16,74 +17,50 @@
 		<div class="jumbotron">
 			<h1 class="text-center"><span class="glyphicon glyphicon-fire"></span> Hot Resturant</h1>
 			<hr>
-			<h2 class="text-center">Reserve now!</h2>
+			<h2 class="text-center">Current Reservations and Waiting List</h2>
 			<br>
-
 			<div class="text-center">
-				<a href="/tables"><button type="button" class="btn btn-lg btn-primary">View Tables</button></a>
-				<a href="/"><button type="button" class="btn btn-lg btn-default">Make A Reservation</button></a>
+				
+                <a href="/reserve"><button type="button" class="btn btn-lg btn-danger">Make A Reservation</button></a>
+                <a href="/"><button type="button" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-home"></span></button></a>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-lg-12">
 
-				<!-- Reservation Page -->
+				<!-- Current Tables in Use -->
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h4 class="panel-title">Table Reservation</h4>
+						<h4 class="panel-title">Current Reservations</h4>
 					</div>
-					<div class="panel-body">
-
-						<form role="form" lpformnum="1">
-
-							<div class="form-group">
-								<label for="reserve_name">Name</label>
-								<input type="text" class="form-control" id="reserve_name" name="name");>
-							</div>
-
-							<div class="form-group">
-								<label for="reserve_phone">Phone Number</label>
-								<input type="text" class="form-control" id="reserve_phone" name="phone">
-							</div>
-
-							<div class="form-group">
-								<label for="reserve_email">Email</label>
-								<input type="text" class="form-control" id="reserve_email" name="email">
-							</div>
-
-              <div class="form-group">
-                <label for="reserve_party">How Many People in your party?</label>
-                <input type="integer" class="form-control" id="reserve_party" name="party">
-              </div>
-
-							<div class="form-group">
-								<label for="reserve_uniqueID">Unique ID</label>
-								<input type="text" class="form-control" id="reserve_uniqueID" name="id">
-							</div>
-
-
-
-							<button type="submit" class="btn btn-primary submit">Submit</button>
-						</form>
-
+					<div class="panel-body" id="tableSection">
 					</div>
 				</div>
 
+				<!-- Waiting List Panel -->
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">Waiting List</h4>
+					</div>
+					<div class="panel-body" id="waitlistSection">
+					</div>
+				</div>
 			</div>
 		</div>
 
 	    <footer class="footer">
-	      <div class="container">
-	        <p><a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a> </p>
-	      </div>
-	    </footer>
+            <div class="container">
+                <p>Control Panel</p>
+              <p><a href="#" id="clear">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a></p>
+            </div>
+          </footer>
 
 	</div>
 
 	<script src="reserve.js"></script>
   <script type="text/javascript">
-	
+
   	// In this code below we create the Front-end Javascript which "POSTS" our form data to our express server.
   	// In essence, when the user hits submit, jQuery grabs all of the fields then sends a post request to our api
   	// Our api recognizes the route (/api/tables)... and then runs the associated code (found in api-routes.js).
@@ -104,7 +81,7 @@
 
   		var currentURL = window.location.origin;
 
-  	    $.post(currentURL + "/api/tables", newReservation,
+  	    $.post(currentURL + "/api/new", newReservation,
   	    function(data) {
 
   	    	// If a table is available... tell user they are booked.
