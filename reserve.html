@@ -81,7 +81,7 @@
 
 	</div>
 
-	<script src="reserve.js"></script>
+<!--<script src="reserve.js"></script>-->
   <script type="text/javascript">
 	
   	// In this code below we create the Front-end Javascript which "POSTS" our form data to our express server.
@@ -104,19 +104,10 @@
 
   		var currentURL = window.location.origin;
 
-  	    $.post(currentURL + "/api/tables", newReservation,
-  	    function(data) {
+  	    $.post(currentURL + "/api/tables", newReservation)
+  	    .then(function(data) {
 
-  	    	// If a table is available... tell user they are booked.
-  	    	if(data === true){
-  	    		alert("Yay! You are officially booked!")
-  	    	}
-
-  	    	// If a table is available... tell user they on the waiting list.
-  	    	if(data === false){
-  	    		alert("Sorry you are on the wait list")
-  	    	}
-
+  	
   	    	// Clear the form when submitting
       		$('#reserve_name').val("");
   			$('#reserve_phone').val("");
@@ -125,9 +116,11 @@
         	$('#reserve_party').val().trim()
 
   	    });
-
+		  console.log(currentURL + "/api/tables");
   return false;
 
   });
 
   </script>
+  </body>
+  </html>
